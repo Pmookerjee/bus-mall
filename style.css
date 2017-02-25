@@ -1,12 +1,5 @@
 
 
- .title {
-  border: none
-  display: flex;
-  list-style: none;
-  justify-content: flex-start;
-}
-
 .nav ul{
   display: flex;
   list-style: none;
@@ -28,7 +21,7 @@ div {
   border: 2px orange;
 }
 
-.container {
+.container div {
   display: flex;
   justify-content: space-around;
   border: 1em black;
