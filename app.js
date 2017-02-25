@@ -25,7 +25,6 @@ var tracker = {
   clicks: 0,
   min: 0,
   max: imageNames.length,
-  displayedProducts: [],
 
   getRandomNums: function() {
      var nums = [];
@@ -48,25 +47,24 @@ var tracker = {
     var el = document.getElementById('img1').setAttribute('src', productsArray[nums[1]].path);
     var el = document.getElementById('img2').setAttribute('src', productsArray[nums[2]].path);
   },
-  incrementVote: function(image) {
-
+  incrementVote: function(clicked) {
+    console.log('clickedID is ' + clicked);
+    if (clicked === 'img0') { productsArray[nums[0]].votes++;
+    console.log('first image is ' + productsArray[nums[0]]);}
+    else if (clicked === 'img1') { productsArray[nums[1]].votes++;}
+    else { productsArray[nums[2]].votes++;}
+    console.log('productsArray[2].votes is ' + productsArray[nums[2]].votes);
   },
   displayResults: function() {
-
   }
-
 }
 
-
+img.addEventListener('click', function(e) {
+   var clickedID = e.target.id;
+   tracker.incrementVote(clickedID);
+})
 
 var nums = tracker.getRandomNums();
 // tracker.setDisplayedProducts(nums);
 tracker.drawImages(nums);
 var img = document.getElementById('images');
-img.addEventListener('click', function(e) {
-
-   if (e.id === 'img0') { productsArray[nums[0]].votes++;}
-   else if (e.id === 'img1') { productsArray[nums[1]].votes++;}
-   else { productsArray[nums[2]].votes++;}
-   console.log('productsArray[2].votes is ' + productsArray[nums[2]].votes);
-})
