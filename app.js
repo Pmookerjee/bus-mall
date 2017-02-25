@@ -6,6 +6,7 @@
 
 var imageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'wine-glass', 'water-can' ];
 var productsArray = [];
+var max_clicks = 15;
 
 function Product(name) {
     this.name = name;
@@ -22,21 +23,20 @@ function Product(name) {
 })()
 
 var tracker = {
-  clicks: 0,
   min: 0,
   max: imageNames.length,
+  nums: [],
+
 
   getRandomNums: function() {
-     var nums = [];
-     console.log('num length is ' + nums.length);
-     while(nums.length < 3){
+
+     while(this.nums.length < 3){
        var rand = Math.floor(Math.random() * (this.max - this.min) + this.min);
-       console.log('rand is ' + rand);
-       if(nums.indexOf(rand) === -1){
-         nums.push(rand);
+       if(this.nums.indexOf(rand) === -1){
+         this.nums.push(rand);
        }
      }
-    return nums;
+    return this.nums;
   },
   // setDisplayedProducts: function(nums) {
   //   for(var x in nums){ this.displayedProducts.push(nums[x]);
@@ -48,23 +48,28 @@ var tracker = {
     var el = document.getElementById('img2').setAttribute('src', productsArray[nums[2]].path);
   },
   incrementVote: function(clicked) {
-    console.log('clickedID is ' + clicked);
-    if (clicked === 'img0') { productsArray[nums[0]].votes++;
+    if (clicked === 'img0') {
+      console.log('nums[0] is ' + this.nums[0]); productsArray[this.nums[0]].votes++;
     console.log('first image is ' + productsArray[nums[0]]);}
-    else if (clicked === 'img1') { productsArray[nums[1]].votes++;}
-    else { productsArray[nums[2]].votes++;}
-    console.log('productsArray[2].votes is ' + productsArray[nums[2]].votes);
+    else if (clicked === 'img1') { productsArray[this.nums[1]].votes++;}
+    else { productsArray[this.nums[2]].votes++;}
+    console.log('productsArray[2].votes is ' + productsArray[this.nums[2]].votes);
   },
   displayResults: function() {
   }
 }
 
+
+
+var img = document.getElementById('images');
 img.addEventListener('click', function(e) {
    var clickedID = e.target.id;
    tracker.incrementVote(clickedID);
 })
 
+for(var i=0; i<max_clicks; i++){
 var nums = tracker.getRandomNums();
-// tracker.setDisplayedProducts(nums);
 tracker.drawImages(nums);
-var img = document.getElementById('images');
+
+// tracker.clicks++;
+}
