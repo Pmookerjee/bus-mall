@@ -18,10 +18,10 @@ html {
     border-top-left-radius: 1em;
 }
 
-span {
+.images {
   height: 50em;
   border: 1px solid black;
-  border: 2px orange;
+  width: 100%;
 }
 
 .container {
@@ -31,32 +31,40 @@ span {
   width: 100%;
 }
 
-aside {
+/*aside {
  display: flex;
- height: 100%;
- width: 20%;
+ /*height: 100%;*/
+ /*width: 20%;
  border: 1px grey;
  justify-content: flex-start;
-}
+}*/
 
 h2 {
-  margin: 0 auto;
-  display: block;
+
+  display: flex;
+  padding-left: 1em;
+  padding-right: 1em;
+  justify-content: center;
 }
 
 #results_list {
   list-style: none;
+  display: inline-block;
+  margin 0 auto;
 }
 
 img {
   border: 2px black solid;
+  border-radius: 8px;
+  background-color: none;
 }
 
-fieldset {
+#fieldset {
   margin: 1em 0;
   border-radius: 8px;
   border: color: black;
   background-color: green;
+  visibility: hidden;
 }
 
 input {
@@ -65,4 +73,10 @@ input {
   font-family: cursive;
   margin: .1em auto;
   display: block;
+  visibility: hidden;
+}
+
+.results_li {
+  color: purple;
+
 }

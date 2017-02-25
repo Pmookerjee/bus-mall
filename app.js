@@ -6,7 +6,7 @@
 
 var imageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'wine-glass', 'water-can' ];
 var productsArray = [];
-var max_clicks = 15;
+var max_clicks = 5;
 
 function Product(name) {
     this.name = name;
@@ -26,6 +26,7 @@ var tracker = {
   min: 0,
   max: imageNames.length,
   nums: [],
+  clicks: 0,
 
   getRandomNums: function() {
 
@@ -46,6 +47,7 @@ var tracker = {
     var el = document.getElementById('img1').setAttribute('src', productsArray[nums[1]].path);
     var el = document.getElementById('img2').setAttribute('src', productsArray[nums[2]].path);
   },
+
   incrementVote: function(clicked) {
     if (clicked === 'img0') {
        productsArray[this.nums[0]].votes++;
@@ -57,18 +59,45 @@ var tracker = {
   },
   resetRandom: function() { this.nums = []; },
 
+  helper: function() {
+    nums = this.getRandomNums();
+    this.drawImages(nums);
+  },
+
+  drawButton: function() {
+      var newFieldset = document.getElementById('fieldset');
+      var newInput = document.createElement('input');
+      newInput.type = 'submit';
+      newInput.value = 'View Results';
+      // newInput.setAttribute('value', 'View Results');
+      // newFieldset.appendChild(newInput);
+  },
+
   displayResults: function() {
+    var newUl = document.getElementById('results_list');
+    for(var x in productsArray){
+      var newLi = document.createElement('li');
+      newLi.setAttribute('class', 'results_li');
+      newLi.innerHTML = productsArray[x].name + ': ' + productsArray[x].votes + ' votes';
+      newUl.appendChild(newLi);
+    }
   }
 }
 
 var img = document.getElementById('images');
+
 img.addEventListener('click', function(e) {
    var clickedID = e.target.id;
-   tracker.incrementVote(clickedID);
+   tracker.clicks++;
+      if(tracker.clicks < 3){
+        tracker.incrementVote(clickedID);
+        tracker.helper();
+      } else {
+      img.removeEventListener('click', function(){});
+      tracker.drawButton();
+      tracker.displayResults();
+      }
 })
 
-for(var i=0; i<max_clicks; i++){
-var nums = tracker.getRandomNums();
-tracker.drawImages(nums);
-
-}
+  var nums = tracker.getRandomNums();
+  tracker.drawImages(nums);
