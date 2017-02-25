@@ -9,7 +9,7 @@ var productsArray = [];
 
 function Product(name) {
     this.name = name;
-    this.path = name + '.jpg';
+    this.path = name + '.png';
     this.votes = 0;
 }
 
@@ -38,8 +38,10 @@ var tracker = {
      }
     return nums;
   },
-  drawImages: function() {
-
+  drawImages: function(nums) {
+    var el = document.getElementById('img1').setAttribute('src', productsArray[nums[0]].path);
+    var el = document.getElementById('img2').setAttribute('src', productsArray[nums[1]].path);
+    var el = document.getElementById('img3').setAttribute('src', productsArray[nums[2]].path);
   },
   incrementVote: function(image) {
 
@@ -56,3 +58,4 @@ var tracker = {
 
 var nums = tracker.getRandomNums();
 console.log('nums are ' + nums[0] + ', ' + nums[1] + ', ' + nums[2]);
+tracker.drawImages(nums);
