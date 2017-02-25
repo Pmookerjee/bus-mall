@@ -27,7 +27,6 @@ var tracker = {
   max: imageNames.length,
   nums: [],
 
-
   getRandomNums: function() {
 
      while(this.nums.length < 3){
@@ -49,17 +48,18 @@ var tracker = {
   },
   incrementVote: function(clicked) {
     if (clicked === 'img0') {
-      console.log('nums[0] is ' + this.nums[0]); productsArray[this.nums[0]].votes++;
-    console.log('first image is ' + productsArray[nums[0]]);}
+       productsArray[this.nums[0]].votes++;
+       console.log('productArray: ' + productsArray[this.nums[0]].name + ' has ' + productsArray[this.nums[0]].votes) + ' votes';
+    }
     else if (clicked === 'img1') { productsArray[this.nums[1]].votes++;}
     else { productsArray[this.nums[2]].votes++;}
-    console.log('productsArray[2].votes is ' + productsArray[this.nums[2]].votes);
+    this.resetRandom();
   },
+  resetRandom: function() { this.nums = []; },
+
   displayResults: function() {
   }
 }
-
-
 
 var img = document.getElementById('images');
 img.addEventListener('click', function(e) {
@@ -71,5 +71,4 @@ for(var i=0; i<max_clicks; i++){
 var nums = tracker.getRandomNums();
 tracker.drawImages(nums);
 
-// tracker.clicks++;
 }
