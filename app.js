@@ -1,23 +1,17 @@
-// 1. Generate three random, non-dupe images (part of the controller)
-// 2. Object constructor for Products:
-  // a. Include name, path, votes
-// 3. A tracker object that will controll functionality of app
-// 4. Event listener(s) for image clicks
 
 var imageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'wine-glass', 'water-can' ];
 var productsArray = [];
-// var max_clicks = 5;
+var max_clicks = 15;
 
 function Product(name) {
-    this.name = name;
-    this.path = name + '.png';
-    this.votes = 0;
-    this.displayed = 0;
+  this.name = name;
+  this.path = name + '.png';
+  this.votes = 0;
+  this.displayed = 0;
 }
 
-// a simple IIFE to build all the product images
 (function() {
-  // build the objects
+
   for(var x in imageNames) {
     productsArray[x] = new Product(imageNames[x]);
   }
@@ -31,18 +25,15 @@ var tracker = {
 
   getRandomNums: function() {
 
-     while(this.nums.length < 3){
-       var rand = Math.floor(Math.random() * (this.max - this.min) + this.min);
-       if(this.nums.indexOf(rand) === -1){
-         this.nums.push(rand);
-       }
-     }
+    while(this.nums.length < 3){
+      var rand = Math.floor(Math.random() * (this.max - this.min) + this.min);
+      if(this.nums.indexOf(rand) === -1){
+        this.nums.push(rand);
+      }
+    }
     return this.nums;
   },
-  // setDisplayedProducts: function(nums) {
-  //   for(var x in nums){ this.displayedProducts.push(nums[x]);
-  //   console.log('displayedProducts is ' + this.displayedProducts[x]);}
-  // },
+
   drawImages: function(nums) {
     var el = document.getElementById('img0').setAttribute('src', productsArray[nums[0]].path);
     var el = document.getElementById('img1').setAttribute('src', productsArray[nums[1]].path);
@@ -71,35 +62,46 @@ var tracker = {
     document.getElementById('submit').style.visibility = 'visible';
   },
 
+  hideButton: function() {
+    document.getElementById('fieldset').style.visibility = 'hidden';
+    document.getElementById('submit').style.visibility = 'hidden';
+  },
+
   displayResults: function() {
+    document.getElementById('results').innerHTML = 'Results';
     var newUl = document.getElementById('results_list');
     for(var x in productsArray){
       var newLi = document.createElement('li');
       newLi.setAttribute('class', 'results_li');
-      newLi.innerHTML = productsArray[x].name + ': ' + productsArray[x].votes + ' votes';
+      newLi.innerHTML = 'The ' + productsArray[x].name + ':   ' + productsArray[x].votes + ' votes';
       newUl.appendChild(newLi);
     }
   },
+
   finish: function() {
     this.unhideButton();
     var results = document.getElementById('submit');
-    results.addEventListener('click', this.displayResults());
+    results.addEventListener('click', function(e){
+      e.preventDefault();
+      tracker.displayResults();
+      tracker.hideButton();
+    })
   }
 }
 
 var img = document.getElementById('images');
 
 img.addEventListener('click', function(e) {
-   var clickedID = e.target.id;
-   tracker.clicks++;
-      if(tracker.clicks < 3){
-        tracker.incrementVote(clickedID);
-        tracker.helper();
-      } else {
-      img.removeEventListener('click', function(){});
-        tracker.finish();
-      }
+  var clickedID = e.target.id;
+  tracker.clicks++;
+  tracker.incrementVote(clickedID);
+  if(tracker.clicks < max_clicks){
+    tracker.helper();
+  } else {
+    img.removeEventListener('click', function(){});
+    tracker.finish();
+  }
 })
 
-  var nums = tracker.getRandomNums();
-  tracker.drawImages(nums);
+var nums = tracker.getRandomNums();
+tracker.drawImages(nums);
