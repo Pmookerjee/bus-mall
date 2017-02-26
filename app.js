@@ -6,12 +6,13 @@
 
 var imageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'wine-glass', 'water-can' ];
 var productsArray = [];
-var max_clicks = 5;
+// var max_clicks = 5;
 
 function Product(name) {
     this.name = name;
     this.path = name + '.png';
     this.votes = 0;
+    this.displayed = 0;
 }
 
 // a simple IIFE to build all the product images
@@ -49,14 +50,15 @@ var tracker = {
   },
 
   incrementVote: function(clicked) {
-    if (clicked === 'img0') {
-       productsArray[this.nums[0]].votes++;
-       console.log('productArray: ' + productsArray[this.nums[0]].name + ' has ' + productsArray[this.nums[0]].votes) + ' votes';
-    }
+    if (clicked === 'img0') { productsArray[this.nums[0]].votes++; }
     else if (clicked === 'img1') { productsArray[this.nums[1]].votes++;}
     else { productsArray[this.nums[2]].votes++;}
+    productsArray[this.nums[0]].diplayed++;
+    productsArray[this.nums[1]].diplayed++;
+    productsArray[this.nums[2]].diplayed++;
     this.resetRandom();
   },
+
   resetRandom: function() { this.nums = []; },
 
   helper: function() {
@@ -64,13 +66,9 @@ var tracker = {
     this.drawImages(nums);
   },
 
-  drawButton: function() {
-      var newFieldset = document.getElementById('fieldset');
-      var newInput = document.createElement('input');
-      newInput.type = 'submit';
-      newInput.value = 'View Results';
-      // newInput.setAttribute('value', 'View Results');
-      // newFieldset.appendChild(newInput);
+  unhideButton: function() {
+    document.getElementById('fieldset').style.visibility = 'visible';
+    document.getElementById('submit').style.visibility = 'visible';
   },
 
   displayResults: function() {
@@ -81,6 +79,11 @@ var tracker = {
       newLi.innerHTML = productsArray[x].name + ': ' + productsArray[x].votes + ' votes';
       newUl.appendChild(newLi);
     }
+  },
+  finish: function() {
+    this.unhideButton();
+    var results = document.getElementById('submit');
+    results.addEventListener('click', this.displayResults());
   }
 }
 
@@ -94,8 +97,7 @@ img.addEventListener('click', function(e) {
         tracker.helper();
       } else {
       img.removeEventListener('click', function(){});
-      tracker.drawButton();
-      tracker.displayResults();
+        tracker.finish();
       }
 })
 
