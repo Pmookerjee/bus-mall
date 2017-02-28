@@ -18,15 +18,13 @@ function Product(name) {
 })()
 
 var tracker = {
-  min: 0,
-  max: imageNames.length,
   nums: [],
   clicks: 0,
 
   getRandomNums: function() {
 
     while(this.nums.length < 3){
-      var rand = Math.floor(Math.random() * (this.max - this.min) + this.min);
+      var rand = Math.floor(Math.random() * imageNames.length);
       if(this.nums.indexOf(rand) === -1){
         this.nums.push(rand);
       }
@@ -35,9 +33,9 @@ var tracker = {
   },
 
   drawImages: function(nums) {
-    var el = document.getElementById('img0').setAttribute('src', productsArray[nums[0]].path);
-    var el = document.getElementById('img1').setAttribute('src', productsArray[nums[1]].path);
-    var el = document.getElementById('img2').setAttribute('src', productsArray[nums[2]].path);
+    document.getElementById('img0').setAttribute('src', productsArray[nums[0]].path);
+    document.getElementById('img1').setAttribute('src', productsArray[nums[1]].path);
+    document.getElementById('img2').setAttribute('src', productsArray[nums[2]].path);
   },
 
   incrementVote: function(clicked) {
