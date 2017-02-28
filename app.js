@@ -67,6 +67,7 @@ var tracker = {
 
   displayResults: function() {
     document.getElementById('results').innerHTML = 'Results';
+    document.getElementById('box').style.visibility = 'visible';
     var newUl = document.getElementById('results_list');
     for(var x in productsArray){
       var newLi = document.createElement('li');
@@ -83,13 +84,20 @@ var tracker = {
       e.preventDefault();
       tracker.displayResults();
       tracker.hideButton();
+      tracker.reset();
     })
+  },
+
+  reset: function() {
+    this.clicks = 0;
+    for(var x in productsArray) { productsArray[x].votes = 0; }
   }
 }
 
 var img = document.getElementById('images');
 
 img.addEventListener('click', function(e) {
+  e.preventDefault();
   var clickedID = e.target.id;
   tracker.clicks++;
   tracker.incrementVote(clickedID);
