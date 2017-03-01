@@ -10,6 +10,18 @@ html {
   margin-left: 5em;
 }
 
+.title {
+  diplay: flex;
+  justify-content: flex-start;
+  border: 2px black;
+}
+
+.logo {
+  display: flex;
+  justify-content: flex-start;
+  border: 2px black
+}
+
 nav {
   display: flex;
   flex-direction: column;
