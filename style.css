@@ -1,6 +1,7 @@
 
 html {
-  background-image: url(road-04.jpg) ;
+  background-image: url('./assets/Road.jpg') ;
+  border: 5px black;
 }
 
 .bus {
@@ -11,7 +12,7 @@ html {
 }
 
 .title {
-  diplay: flex;
+  display: flex;
   justify-content: flex-start;
   border: 2px black;
 }
@@ -125,4 +126,13 @@ img {
   font-family: 'Arial';
   font-size: 1em;
 
+}
+
+/*#chart {
+  width: 75%;
+}*/
+
+canvas {
+  width: 50px;
+  height: 10px;
 }
