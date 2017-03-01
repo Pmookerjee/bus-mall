@@ -1,7 +1,6 @@
 
 html {
   background-image: url('./assets/Road.jpg') ;
-  border: 5px black;
 }
 
 .bus {
@@ -39,7 +38,6 @@ nav {
 }
 
 .images {
-  height: 50em;
   border: 1px solid black;
   width: 100%;
 }
@@ -129,7 +127,19 @@ img {
   width: 75%;
 }*/
 
-canvas {
-  width: 50px;
-  height: 10px;
+
+ .chart {
+   display: flex;
+   justify-content: flex-end;
+  /*position: relative;*/
+  width: 500px;
+  height:500px;
+}
+
+#myChart {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  width: 100px;
+  height: 100px;
 }
