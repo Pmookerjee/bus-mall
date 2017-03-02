@@ -1,7 +1,7 @@
 
 html {
   background-image: url('./assets/Road.jpg') ;
-  border: 5px black;
+  background-repeat: no-repeat;
 }
 
 .bus {
@@ -39,7 +39,6 @@ nav {
 }
 
 .images {
-  height: 50em;
   border: 1px solid black;
   width: 100%;
 }
@@ -122,14 +121,26 @@ img {
   color: black;
   font-family: 'Arial';
   font-size: 1em;
-
 }
 
-/*#chart {
-  width: 75%;
-}*/
+.bottom {
+  width: 500px;
+  height:500px;
+}
 
-canvas {
-  width: 50px;
-  height: 10px;
+.chart {
+  position: relative;
+  width: 950px;
+  height: 500px;
+}
+
+.chart.closed {
+  height: 0;
+  overflow: hidden;
+}
+
+#myChart {
+  width: 100px;
+  height: 100px;
+  margin-left: 350px;
 }
