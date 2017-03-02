@@ -84,7 +84,7 @@ var tracker = {
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: [productsArray[0].name, productsArray[1].name, productsArray[2].name, productsArray[3].name, productsArray[4].name], 
+        labels: [productsArray[0].name, productsArray[1].name, productsArray[2].name, productsArray[3].name, productsArray[4].name],
         datasets: [{
           label: 'Number of Votes',
           data: [productsArray[0].votes, productsArray[1].votes, productsArray[2].votes, productsArray[3].votes, productsArray[4].votes],
@@ -96,17 +96,17 @@ var tracker = {
             'rgba(153, 102, 255, 0.9)'
           ],
           borderColor: [
-            'rgba(255,99,132,2)',
-            'rgba(54, 162, 235, 2)',
-            'rgba(255, 206, 86, 2)',
-            'rgba(75, 192, 192, 2)',
-            'rgba(153, 102, 255, 2'
+            'rgba(255,99,132,20)',
+            'rgba(54, 162, 235, 20)',
+            'rgba(255, 206, 86, 20)',
+            'rgba(75, 192, 192, 20)',
+            'rgba(153, 102, 255, 20)'
           ],
           borderWidth: 1
         }]
       },
       options: {
-        legend: {labels:{fontColor:"white", fontSize: 14}},
+        legend: {labels:{fontColor:"white", fontSize: 14, strokeStyle: "black"}},
         scales: {
           yAxes: [{
             ticks: {

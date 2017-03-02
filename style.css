@@ -1,6 +1,7 @@
 
 html {
   background-image: url('./assets/Road.jpg') ;
+  background-repeat: no-repeat;
 }
 
 .bus {
@@ -123,23 +124,24 @@ img {
 
 }
 
-/*#chart {
-  width: 75%;
-}*/
-
-
- .chart {
-   display: flex;
-   justify-content: flex-end;
-  /*position: relative;*/
+.bottom {
+  display: flex;
   width: 500px;
   height:500px;
 }
 
+ .chart {
+  position: relative;
+  width: 950px;
+  height: 500px;
+
+}
+
 #myChart {
-  position: absolute;
+  /*position: absolute;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end;*/
   width: 100px;
   height: 100px;
+  margin-left: 350px;
 }
