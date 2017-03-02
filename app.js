@@ -1,7 +1,7 @@
 
 var imageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'wine-glass', 'water-can' ];
 var productsArray = [];
-var max_clicks = 3;
+var max_clicks = 15;
 
 function Product(name) {
   this.name = name;
@@ -79,6 +79,7 @@ var tracker = {
   },
 
   drawChart: function() {
+    document.getElementsByClassName("chart")[0].className = 'chart';
     var ctx = document.getElementById("myChart").getContext("2d");
 
     var myChart = new Chart(ctx, {
@@ -171,4 +172,3 @@ img.addEventListener('click', function(e) {
 
 var nums = tracker.getRandomNums();
 tracker.drawImages(nums);
-tracker.drawChart();

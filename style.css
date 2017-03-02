@@ -121,26 +121,25 @@ img {
   color: black;
   font-family: 'Arial';
   font-size: 1em;
-
 }
 
 .bottom {
-  display: flex;
   width: 500px;
   height:500px;
 }
 
- .chart {
+.chart {
   position: relative;
   width: 950px;
   height: 500px;
+}
 
+.chart.closed {
+  height: 0;
+  overflow: hidden;
 }
 
 #myChart {
-  /*position: absolute;
-  display: flex;
-  justify-content: flex-end;*/
   width: 100px;
   height: 100px;
   margin-left: 350px;
