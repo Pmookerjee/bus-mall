@@ -7,7 +7,7 @@ function Product(name) {
   this.name = name;
   this.path = './assets/' + name + '.png';
   this.votes = 0;
-  this.displayed = 0;
+  this.views = 0;
 }
 
 (function() {
@@ -39,19 +39,31 @@ var tracker = {
   },
 
   incrementVote: function() {
-    if (this.clickedID === 'img0') { productsArray[this.nums[0]].votes++;}
-    else if (this.clickedID === 'img1') { productsArray[this.nums[1]].votes++;}
-    else { productsArray[this.nums[2]].votes++;}
-    productsArray[this.nums[0]].displayed++;
-    productsArray[this.nums[1]].displayed++;
-    productsArray[this.nums[2]].displayed++;
-    this.resetRandom();
+    if (this.clickedID === 'img0') {
+      productsArray[this.nums[0]].votes++;
+      localStorage.setItem(productsArray[this.nums[0]].name, productsArray[this.nums[0]].votes++);
+    } else if (this.clickedID === 'img1') {
+      productsArray[this.nums[1]].votes++;
+      localStorage.setItem(productsArray[this.nums[1]].name, productsArray[this.nums[1]].votes++);
+    } else {
+      productsArray[this.nums[2]].votes++;
+      localStorage.setItem(productsArray[this.nums[2]].name, productsArray[this.nums[2]].votes++);
+    }
+  },
+
+  incrementViewTotal: function() {
+    for(image in this.nums){
+      productsArray[this.nums[image]].views++;
+      localStorage.setItem(productsArray[this.nums[image]].name + '_views', productsArray[this.nums[image]].views);
+    }
+    tracker.resetRandom();
   },
 
   resetRandom: function() { this.nums = []; },
 
   helper: function() {
     tracker.incrementVote();
+    tracker.incrementViewTotal();
     nums = this.getRandomNums();
     this.drawImages(nums);
   },
@@ -133,6 +145,7 @@ var tracker = {
   finish: function() {
     this.unhideButton();
     tracker.incrementVote();
+    tracer.incrementViewTotal();
     var results = document.getElementById('submit');
     results.addEventListener('click', function(e){
       e.preventDefault();
@@ -140,7 +153,7 @@ var tracker = {
       tracker.hideButton();
       tracker.getMostClicked();
       tracker.drawChart();
-      tracker.reset();
+      // tracker.reset();
     })
   },
 
