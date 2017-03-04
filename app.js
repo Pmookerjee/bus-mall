@@ -6,8 +6,8 @@ var max_clicks = 15;
 function Product(name) {
   this.name = name;
   this.path = './assets/' + name + '.png';
-  this.votes = 0;
-  this.views = 0;
+  this.votes = localStorage.getItem(this.name + '_votes') || 0;
+  this.views = localStorage.getItem(this.name + '_views') || 0;
 }
 
 (function() {
@@ -41,13 +41,13 @@ var tracker = {
   incrementVote: function() {
     if (this.clickedID === 'img0') {
       productsArray[this.nums[0]].votes++;
-      localStorage.setItem(productsArray[this.nums[0]].name, productsArray[this.nums[0]].votes++);
+      localStorage.setItem(productsArray[this.nums[0]].name + '_votes', productsArray[this.nums[0]].votes);
     } else if (this.clickedID === 'img1') {
       productsArray[this.nums[1]].votes++;
-      localStorage.setItem(productsArray[this.nums[1]].name, productsArray[this.nums[1]].votes++);
+      localStorage.setItem(productsArray[this.nums[1]].name + '_votes', productsArray[this.nums[1]].votes);
     } else {
       productsArray[this.nums[2]].votes++;
-      localStorage.setItem(productsArray[this.nums[2]].name, productsArray[this.nums[2]].votes++);
+      localStorage.setItem(productsArray[this.nums[2]].name+ '_votes', productsArray[this.nums[2]].votes);
     }
   },
 
@@ -99,6 +99,7 @@ var tracker = {
       data: {
         labels: [productsArray[0].name, productsArray[1].name, productsArray[2].name, productsArray[3].name, productsArray[4].name],
         datasets: [{
+          type: 'bar',
           label: 'Number of Votes',
           data: [productsArray[0].votes, productsArray[1].votes, productsArray[2].votes, productsArray[3].votes, productsArray[4].votes],
           backgroundColor: [
@@ -115,28 +116,38 @@ var tracker = {
             'rgba(75, 192, 192, 20)',
             'rgba(153, 102, 255, 20)'
           ],
-          borderWidth: 1
+          borderWidth: 3
+        },
+        {
+                type: 'line',
+                label: 'Number of Views',
+                data: [productsArray[0].views, productsArray[1].views, productsArray[2].views, productsArray[3].views, productsArray[4].views],
         }]
       },
       options: {
-        legend: {labels:{fontColor:"white", fontSize: 14, strokeStyle: "black"}},
+        legend: {labels:{fontColor:"black", fontSize: 14, strokeStyle: "black"}},
         scales: {
           yAxes: [{
             ticks: {
-              fontColor: "white",
+              fontColor: "black",
               fontSize: 18,
               stepSize: 1,
-              beginAtZero:true
+              beginAtZero:true,
+              maxTicksLimit: 15,
+              maxRotation: 2,
+              autoSkip: true
             }
           }],
           xAxes: [{
             ticks: {
-              fontColor: "white",
+              fontColor: "black",
               fontSize: 16,
               stepSize: 1,
               beginAtZero:true
-            }
-          }]
+            },
+            barPercentage: 0.5,
+            barThickness: 50
+          }],
         }
       }
     })
@@ -145,7 +156,7 @@ var tracker = {
   finish: function() {
     this.unhideButton();
     tracker.incrementVote();
-    tracer.incrementViewTotal();
+    tracker.incrementViewTotal();
     var results = document.getElementById('submit');
     results.addEventListener('click', function(e){
       e.preventDefault();

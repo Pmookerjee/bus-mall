@@ -1,7 +1,8 @@
 
 html {
-  background-image: url('./assets/Road.jpg') ;
-  background-repeat: no-repeat;
+  background-image: url('./assets/road-bus-yellow.jpg') ;
+  background-repeat: space;
+
 }
 
 .bus {
@@ -70,17 +71,19 @@ h1 {
   opacity: inherit;
 }
 
-h2 {
+h3 {
   display: flex;
   padding-left: 1em;
   padding-right: 1em;
+  margin-bottom: .5em;
   justify-content: center;
 }
 
 #results_list {
   list-style: none;
   display: inline-block;
-  margin 0 auto;
+  text-align: center;
+  margin: 1em auto;
   padding: .5em 0;
 }
 
@@ -93,14 +96,14 @@ img {
 #fieldset {
   margin: 1em 0;
   border-radius: 8px;
-  border: color: black;
-  background-color: green;
+  border: black 2px solid;
+  background-color: #2c5699;
   visibility: hidden;
-  border: none;
+  /*border: none;*/
 }
 
 #box {
-  background-color: white;
+  background-color: #c1d5f4;
   border: 2px black solid;
   border-radius: 8px;
   width: 20%;
@@ -111,16 +114,20 @@ img {
 #submit {
   text-align: center;
   font-size: 2em;
-  font-family: cursive;
+  height: 1em;
   margin: .1em auto;
   display: block;
   visibility: hidden;
+}
+#clear {
+  text-align: center;
+
 }
 
 .results_li {
   color: black;
   font-family: 'Arial';
-  font-size: 1em;
+  font-size: .8em;
 }
 
 .bottom {
@@ -129,9 +136,11 @@ img {
 }
 
 .chart {
-  position: relative;
-  width: 950px;
-  height: 500px;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1em;
+  width: 700px;
+  height: 450px;
 }
 
 .chart.closed {
@@ -140,5 +149,10 @@ img {
 }
 
 #myChart {
-  margin-left: 350px;
+  display: flex;
+  justify-content: flex-end;
+  /*margin-left: 500px;*/
+  border: 2px solid black;
+  border-radius: 11px;
+  background-color: #c1d5f4;
 }
