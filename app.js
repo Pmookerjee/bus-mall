@@ -56,14 +56,14 @@ var tracker = {
       productsArray[this.nums[image]].views++;
       localStorage.setItem(productsArray[this.nums[image]].name + '_views', productsArray[this.nums[image]].views);
     }
-    tracker.resetRandom();
+    this.resetRandom();
   },
 
   resetRandom: function() { this.nums = []; },
 
   helper: function() {
-    tracker.incrementVote();
-    tracker.incrementViewTotal();
+    this.incrementVote();
+    this.incrementViewTotal();
     nums = this.getRandomNums();
     this.drawImages(nums);
   },
@@ -76,6 +76,13 @@ var tracker = {
   hideButton: function() {
     document.getElementById('fieldset').style.visibility = 'hidden';
     document.getElementById('submit').style.visibility = 'hidden';
+  },
+
+  disableHover: function() {
+    for(var i=0; i<3; i++){
+      var el = document.getElementById('img' + i);
+      el.className = '';
+    }
   },
 
   drawChart: function() {
@@ -154,6 +161,7 @@ var tracker = {
       votes.innerHTML = productsArray[index].votes;
       var percent = document.createElement('td');
       percent.innerHTML = Math.round((productsArray[index].votes/productsArray[index].views) * 100);
+      if (isNaN(percent.innerHTML)) { percent.innerHTML = 0; }
       var recommend = document.createElement('td');
       if(percent.innerHTML > 30) {
         recommend.innerHTML = 'YES';
@@ -175,12 +183,12 @@ var tracker = {
 
   finish: function() {
     this.unhideButton();
-    tracker.incrementVote();
-    tracker.incrementViewTotal();
+    this.disableHover();
+    this.incrementVote();
+    this.incrementViewTotal();
     var results = document.getElementById('submit');
     results.addEventListener('click', function(e){
       e.preventDefault();
-      // tracker.displayResults();
       tracker.hideButton();
       tracker.getMostClicked();
       tracker.drawChart();
