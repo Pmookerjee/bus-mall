@@ -100,7 +100,7 @@ var tracker = {
         labels: [productsArray[0].name, productsArray[1].name, productsArray[2].name, productsArray[3].name, productsArray[4].name],
         datasets: [{
           type: 'bar',
-          label: 'Number of Votes',
+          label: ' Number of Votes',
           data: [productsArray[0].votes, productsArray[1].votes, productsArray[2].votes, productsArray[3].votes, productsArray[4].votes],
           backgroundColor: [
             'rgba(255, 99, 132, 0.9)',
@@ -116,12 +116,12 @@ var tracker = {
             'rgba(75, 192, 192, 20)',
             'rgba(153, 102, 255, 20)'
           ],
-          borderWidth: 3
+          borderWidth: 10
         },
         {
-                type: 'line',
-                label: 'Number of Views',
-                data: [productsArray[0].views, productsArray[1].views, productsArray[2].views, productsArray[3].views, productsArray[4].views],
+          type: 'line',
+          label: ' Number of Views',
+          data: [productsArray[0].views, productsArray[1].views, productsArray[2].views, productsArray[3].views, productsArray[4].views],
         }]
       },
       options: {
@@ -131,7 +131,7 @@ var tracker = {
             ticks: {
               fontColor: "black",
               fontSize: 18,
-              stepSize: 1,
+              stepSize: 5,
               beginAtZero:true,
               maxTicksLimit: 15,
               maxRotation: 2,
@@ -145,12 +145,40 @@ var tracker = {
               stepSize: 1,
               beginAtZero:true
             },
-            barPercentage: 0.5,
+            barPercentage: 0.9,
             barThickness: 50
           }],
         }
       }
     })
+  },
+
+  drawTable: function() {
+    var table = document.getElementById('table');
+    for (var index in productsArray){
+      var newTr = document.createElement('tr');
+      var newTh = document.createElement('th');
+      newTh.innerHTML = productsArray[index].name;
+      var views = document.createElement('td');
+      views.innerHTML = productsArray[index].views;
+      var votes = document.createElement('td');
+      votes.innerHTML = productsArray[index].votes;
+      var percent = document.createElement('td');
+      percent.innerHTML = Math.round((productsArray[index].votes/productsArray[index].views) * 100);
+      var recommend = document.createElement('td');
+      if(percent.innerHTML > 30) {
+        recommend.innerHTML = 'YES';
+        recommend.setAttribute('class', 'yes');
+        newTh.setAttribute('class', 'yes');
+      }
+      else { recommend.innerHTML = 'NO'; }
+      table.appendChild(newTr);
+      newTr.appendChild(newTh);
+      newTr.appendChild(views);
+      newTr.appendChild(votes);
+      newTr.appendChild(percent);
+      newTr.appendChild(recommend);
+    }
   },
 
   finish: function() {
@@ -164,6 +192,7 @@ var tracker = {
       tracker.hideButton();
       tracker.getMostClicked();
       tracker.drawChart();
+      tracker.drawTable();
       // tracker.reset();
     })
   },

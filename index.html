@@ -40,9 +40,20 @@
     </div>
     <section class="chart closed">
       <canvas id="myChart" ></canvas>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
-      <script type="text/javascript" src='app.js'></script>
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Views</th>
+            <th>Clicks</th>
+            <th>% of Clicks When Viewed</th>
+            <th>Recommended?</th>
+          </tr>
+        </thead>
+      </table>
     </section>
   </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+  <script type="text/javascript" src='app.js'></script>
 </body>
 </html>
