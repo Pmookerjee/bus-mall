@@ -78,18 +78,6 @@ var tracker = {
     document.getElementById('submit').style.visibility = 'hidden';
   },
 
-  displayResults: function() {
-    document.getElementById('results').innerHTML = 'Results';
-    document.getElementById('box').style.visibility = 'visible';
-    var newUl = document.getElementById('results_list');
-    for(var x in productsArray){
-      var newLi = document.createElement('li');
-      newLi.setAttribute('class', 'results_li');
-      newLi.innerHTML = 'The ' + productsArray[x].name + ':   ' + productsArray[x].votes + ' votes';
-      newUl.appendChild(newLi);
-    }
-  },
-
   drawChart: function() {
     document.getElementsByClassName("chart")[0].className = 'chart';
     var ctx = document.getElementById("myChart").getContext("2d");
@@ -154,6 +142,7 @@ var tracker = {
   },
 
   drawTable: function() {
+    document.getElementById('box').style.visibility = 'visible';
     var table = document.getElementById('table');
     for (var index in productsArray){
       var newTr = document.createElement('tr');
@@ -170,8 +159,11 @@ var tracker = {
         recommend.innerHTML = 'YES';
         recommend.setAttribute('class', 'yes');
         newTh.setAttribute('class', 'yes');
+      } else {
+        recommend.innerHTML = 'NO';
+        recommend.setAttribute('class', 'no');
+        newTh.setAttribute('class', 'no');
       }
-      else { recommend.innerHTML = 'NO'; }
       table.appendChild(newTr);
       newTr.appendChild(newTh);
       newTr.appendChild(views);
@@ -188,7 +180,7 @@ var tracker = {
     var results = document.getElementById('submit');
     results.addEventListener('click', function(e){
       e.preventDefault();
-      tracker.displayResults();
+      // tracker.displayResults();
       tracker.hideButton();
       tracker.getMostClicked();
       tracker.drawChart();
