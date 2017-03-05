@@ -218,7 +218,7 @@ img.addEventListener('click', function(e) {
 })
 
 var clear = document.getElementById('clear');
-clear.addEventListener('click', function(e){
+  clear.addEventListener('click', function(e){
   localStorage.clear();
   location.reload(false);
 })
