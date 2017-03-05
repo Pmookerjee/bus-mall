@@ -6,11 +6,13 @@
 </head>
 <body>
   <header class='header'>
-
     <nav class='nav'>
       <div class="title">
         <img class="bus" src="./assets/bus.png">
         <h1>BusMall</h1>
+        <fieldset id='clear_votes'>
+          <input type="submit" value="Clear Votes" id='clear'>
+        </fieldset>
       </div>
       <ul>
         <li>Home</li>
@@ -34,27 +36,24 @@
             </tr>
           </thead>
         </table>
-        </ul>
-      </aside>
-      <div>
-        <section id="images">
-          <img src="" alt="" id='img0' class='imgstyle'>
-          <img src="" alt="" id='img1' class='imgstyle'>
-          <img src="" alt="" id='img2' class='imgstyle'>
-        </section>
-        <fieldset id='fieldset'>
-          <input type="submit" value="View Results" id='submit'>
-        </fieldset>
-        <section class="chart closed">
-          <canvas id="myChart" ></canvas>
-        </section>
-      </div>
+      </ul>
+    </aside>
+    <div>
+      <section id="images">
+        <img src="" alt="" id='img0' class='imgstyle'>
+        <img src="" alt="" id='img1' class='imgstyle'>
+        <img src="" alt="" id='img2' class='imgstyle'>
+      </section>
+      <fieldset id='fieldset'>
+        <input type="submit" value="View Results" id='submit'>
+      </fieldset>
+      <section class="chart closed">
+        <canvas id="myChart" ></canvas>
+      </section>
     </div>
-    <!-- <section class="chart closed">
-      <canvas id="myChart" ></canvas>
-    </section> -->
-  </section>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
-  <script type="text/javascript" src='app.js'></script>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+<script type="text/javascript" src='app.js'></script>
 </body>
 </html>

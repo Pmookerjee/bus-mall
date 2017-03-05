@@ -125,10 +125,10 @@ var tracker = {
           yAxes: [{
             ticks: {
               fontColor: "black",
-              fontSize: 18,
+              fontSize: 16,
               stepSize: 5,
               beginAtZero:true,
-              maxTicksLimit: 15,
+              maxTicksLimit: 10,
               maxRotation: 2,
               autoSkip: true
             }
@@ -221,6 +221,12 @@ img.addEventListener('click', function(e) {
   } else if (tracker.clicks < max_clicks) {
     tracker.helper();
   }
+})
+
+var clear = document.getElementById('clear');
+clear.addEventListener('click', function(e){
+  localStorage.clear();
+  location.reload(false);
 })
 
 var nums = tracker.getRandomNums();
