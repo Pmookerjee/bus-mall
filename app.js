@@ -12,8 +12,8 @@ function Product(name) {
 
 (function() {
 
-  for(var x in imageNames) {
-    productsArray[x] = new Product(imageNames[x]);
+  for(var image in imageNames) {
+    productsArray[image] = new Product(imageNames[image]);
   }
 })()
 
