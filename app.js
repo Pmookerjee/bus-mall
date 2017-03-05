@@ -6,8 +6,8 @@ var max_clicks = 15;
 function Product(name) {
   this.name = name;
   this.path = './assets/' + name + '.png';
-  this.votes = 0;
-  this.displayed = 0;
+  this.votes = localStorage.getItem(this.name + '_votes') || 0;
+  this.views = localStorage.getItem(this.name + '_views') || 0;
 }
 
 (function() {
@@ -39,19 +39,31 @@ var tracker = {
   },
 
   incrementVote: function() {
-    if (this.clickedID === 'img0') { productsArray[this.nums[0]].votes++;}
-    else if (this.clickedID === 'img1') { productsArray[this.nums[1]].votes++;}
-    else { productsArray[this.nums[2]].votes++;}
-    productsArray[this.nums[0]].displayed++;
-    productsArray[this.nums[1]].displayed++;
-    productsArray[this.nums[2]].displayed++;
+    if (this.clickedID === 'img0') {
+      productsArray[this.nums[0]].votes++;
+      localStorage.setItem(productsArray[this.nums[0]].name + '_votes', productsArray[this.nums[0]].votes);
+    } else if (this.clickedID === 'img1') {
+      productsArray[this.nums[1]].votes++;
+      localStorage.setItem(productsArray[this.nums[1]].name + '_votes', productsArray[this.nums[1]].votes);
+    } else {
+      productsArray[this.nums[2]].votes++;
+      localStorage.setItem(productsArray[this.nums[2]].name+ '_votes', productsArray[this.nums[2]].votes);
+    }
+  },
+
+  incrementViewTotal: function() {
+    for(image in this.nums){
+      productsArray[this.nums[image]].views++;
+      localStorage.setItem(productsArray[this.nums[image]].name + '_views', productsArray[this.nums[image]].views);
+    }
     this.resetRandom();
   },
 
   resetRandom: function() { this.nums = []; },
 
   helper: function() {
-    tracker.incrementVote();
+    this.incrementVote();
+    this.incrementViewTotal();
     nums = this.getRandomNums();
     this.drawImages(nums);
   },
@@ -66,15 +78,10 @@ var tracker = {
     document.getElementById('submit').style.visibility = 'hidden';
   },
 
-  displayResults: function() {
-    document.getElementById('results').innerHTML = 'Results';
-    document.getElementById('box').style.visibility = 'visible';
-    var newUl = document.getElementById('results_list');
-    for(var x in productsArray){
-      var newLi = document.createElement('li');
-      newLi.setAttribute('class', 'results_li');
-      newLi.innerHTML = 'The ' + productsArray[x].name + ':   ' + productsArray[x].votes + ' votes';
-      newUl.appendChild(newLi);
+  disableHover: function() {
+    for(var i=0; i<3; i++){
+      var el = document.getElementById('img' + i);
+      el.className = '';
     }
   },
 
@@ -87,7 +94,8 @@ var tracker = {
       data: {
         labels: [productsArray[0].name, productsArray[1].name, productsArray[2].name, productsArray[3].name, productsArray[4].name],
         datasets: [{
-          label: 'Number of Votes',
+          type: 'bar',
+          label: ' Number of Votes',
           data: [productsArray[0].votes, productsArray[1].votes, productsArray[2].votes, productsArray[3].votes, productsArray[4].votes],
           backgroundColor: [
             'rgba(255, 99, 132, 0.9)',
@@ -103,44 +111,88 @@ var tracker = {
             'rgba(75, 192, 192, 20)',
             'rgba(153, 102, 255, 20)'
           ],
-          borderWidth: 1
+          borderWidth: 10
+        },
+        {
+          type: 'line',
+          label: ' Number of Views',
+          data: [productsArray[0].views, productsArray[1].views, productsArray[2].views, productsArray[3].views, productsArray[4].views],
         }]
       },
       options: {
-        legend: {labels:{fontColor:"white", fontSize: 14, strokeStyle: "black"}},
+        legend: {labels:{fontColor:"black", fontSize: 14, strokeStyle: "black"}},
         scales: {
           yAxes: [{
             ticks: {
-              fontColor: "white",
-              fontSize: 18,
-              stepSize: 1,
-              beginAtZero:true
+              fontColor: "black",
+              fontSize: 16,
+              stepSize: 5,
+              beginAtZero:true,
+              maxTicksLimit: 10,
+              maxRotation: 2,
+              autoSkip: true
             }
           }],
           xAxes: [{
             ticks: {
-              fontColor: "white",
+              fontColor: "black",
               fontSize: 16,
               stepSize: 1,
               beginAtZero:true
-            }
-          }]
+            },
+            barPercentage: 0.9,
+            barThickness: 50
+          }],
         }
       }
     })
   },
 
+  drawTable: function() {
+    document.getElementById('box').style.visibility = 'visible';
+    var table = document.getElementById('table');
+    for (var index in productsArray){
+      var newTr = document.createElement('tr');
+      var newTh = document.createElement('th');
+      newTh.innerHTML = productsArray[index].name;
+      var views = document.createElement('td');
+      views.innerHTML = productsArray[index].views;
+      var votes = document.createElement('td');
+      votes.innerHTML = productsArray[index].votes;
+      var percent = document.createElement('td');
+      percent.innerHTML = Math.round((productsArray[index].votes/productsArray[index].views) * 100);
+      if (isNaN(percent.innerHTML)) { percent.innerHTML = 0; }
+      var recommend = document.createElement('td');
+      if(percent.innerHTML > 30) {
+        recommend.innerHTML = 'YES';
+        recommend.setAttribute('class', 'yes');
+        newTh.setAttribute('class', 'yes');
+      } else {
+        recommend.innerHTML = 'NO';
+        recommend.setAttribute('class', 'no');
+        newTh.setAttribute('class', 'no');
+      }
+      table.appendChild(newTr);
+      newTr.appendChild(newTh);
+      newTr.appendChild(views);
+      newTr.appendChild(votes);
+      newTr.appendChild(percent);
+      newTr.appendChild(recommend);
+    }
+  },
+
   finish: function() {
     this.unhideButton();
-    tracker.incrementVote();
+    this.disableHover();
+    this.incrementVote();
+    this.incrementViewTotal();
     var results = document.getElementById('submit');
     results.addEventListener('click', function(e){
       e.preventDefault();
-      tracker.displayResults();
       tracker.hideButton();
       tracker.getMostClicked();
       tracker.drawChart();
-      tracker.reset();
+      tracker.drawTable();
     })
   },
 
@@ -148,11 +200,6 @@ var tracker = {
     (productsArray).sort(function(a,b){
       return b.votes - a.votes;
     });
-  },
-
-  reset: function() {
-    this.clicks = 0;
-    for(var x in productsArray) { productsArray[x].votes = 0; }
   }
 }
 
@@ -168,6 +215,12 @@ img.addEventListener('click', function(e) {
   } else if (tracker.clicks < max_clicks) {
     tracker.helper();
   }
+})
+
+var clear = document.getElementById('clear');
+clear.addEventListener('click', function(e){
+  localStorage.clear();
+  location.reload(false);
 })
 
 var nums = tracker.getRandomNums();
