@@ -132,15 +132,10 @@ img {
   font-size: .8em;
 }
 
-.bottom {
-  width: 500px;
-  height:500px;
-}
-
 .chart {
   margin: 0 auto;
   width: 600px;
-  height: 400px;
+  height: 600px;
 }
 
 .chart.closed {
@@ -152,7 +147,6 @@ img {
   display: flex;
   margin: 0 auto;
   justify-content: flex-end;
-  /*border: 2px solid black;*/
   border-radius: 11px;
   background-color: lightgray;
 }
@@ -172,13 +166,13 @@ th {
   padding: 8px;
   background-color: white;
   border-radius: 11px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 td {
   color: black;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .yes {

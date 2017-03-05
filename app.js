@@ -193,7 +193,6 @@ var tracker = {
       tracker.getMostClicked();
       tracker.drawChart();
       tracker.drawTable();
-      // tracker.reset();
     })
   },
 
@@ -201,11 +200,6 @@ var tracker = {
     (productsArray).sort(function(a,b){
       return b.votes - a.votes;
     });
-  },
-
-  reset: function() {
-    this.clicks = 0;
-    for(var x in productsArray) { productsArray[x].votes = 0; }
   }
 }
 
