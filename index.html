@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BusMall!</title>
+  <link href='style.css' type='text/css' rel='stylesheet'>
+</head>
+<body>
+  <header class='header'>
+    <nav class='nav'>
+      <div class="title">
+        <img class="bus" src="./assets/bus.png">
+        <h1>BusMall</h1>
+        <fieldset id='clear_votes'>
+          <input type="submit" value="Clear Votes" id='clear'>
+        </fieldset>
+      </div>
+      <ul>
+        <li>Home</li>
+        <li>Products</li>
+        <li>About</li>
+        <li>Contact</li>
+      </ul>
+    </nav>
+  </header>
+  <div>
+    <section class='container'>
+      <aside id="box">
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Views</th>
+              <th>Clicks</th>
+              <th>% of Clicks When Viewed</th>
+              <th>Recommend</th>
+            </tr>
+          </thead>
+        </table>
+      </ul>
+    </aside>
+    <div>
+      <section id="images">
+        <img src="" alt="" id='img0' class='imgstyle'>
+        <img src="" alt="" id='img1' class='imgstyle'>
+        <img src="" alt="" id='img2' class='imgstyle'>
+      </section>
+      <fieldset id='fieldset'>
+        <input type="submit" value="View Results" id='submit'>
+      </fieldset>
+      <section class="chart closed">
+        <canvas id="myChart" ></canvas>
+      </section>
+    </div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+<script type="text/javascript" src='app.js'></script>
+</body>
+</html>
